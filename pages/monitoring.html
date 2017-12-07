@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="user_metrics" ng-controller="user_metrics_controller">
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	
+
+	<title>EZEE</title>
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!-- MetisMenu CSS -->
+	<link href="css/metisMenu.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="css/style.css" rel="stylesheet">
+
+	<script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script src= "controllers/user_metrics_controller.js"></script>
+	<script src = "https://cdn.zingchart.com/zingchart.min.js" ></script>  
+	<script src = "https://cdn.zingchart.com/angular/zingchart-angularjs.js" ></script> 
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script>
+
+ 	function autoRefresh_div()
+ 	{
+ 	     $("#result").load("load.html");// a function which will load data from other file after x seconds
+ 	 }
+ 
+ 	 setInterval('autoRefresh_div()', 2000); // refresh div after 5 secs
+ 	</script>
+</head>
+
+<body>
+
+	
+	<div id="wrapper"  ng-app="user_metrics_2" >
+		<!-- Navigation -->
+
+
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" >Welcome User</a>
+			</div>
+			<!-- /.navbar-header -->
+
+
+			<ul class="nav navbar-top-links navbar-right">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
+
+					<ul class="dropdown-menu dropdown-user">
+						<li>
+							<a href="landing.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+						</li>
+					</ul>
+					<!-- /.dropdown-user -->
+				</li>
+			</ul>
+
+
+			<div class="navbar-default sidebar" role="navigation">
+				<div class="sidebar-nav navbar-collapse">
+					<ul class="nav" id="side-menu">
+						<li>
+							<a href="dashboard.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+						</li>
+
+
+						<li>
+							<a href="sensors.html"><i class="fa fa-plug fa-fw"></i> My Sensors</a>
+						</li>
+
+
+						<li>
+							<a href="monitoring.html"><i class="fa fa-line-chart fa-fw"></i> Monitoring</a>
+						</li>
+
+						<li>
+							<a href="billing.html"><i class="fa fa-shopping-cart fa-fw"></i> Billing</a>
+						</li>
+
+						<li>
+							<a href="underconstruction.html"><i class="fa fa-area-chart fa-fw"></i> Analyze data</a>
+						</li>
+
+						<li>
+							<a href="underconstruction.html"><i class="fa fa-user fa-fw"></i> Profile</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /.sidebar-collapse -->
+			</div>
+			<!-- /.navbar-static-side -->
+		</nav>
+
+
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header"> Monitoring</h1>
+				
+					<!--<div id="chart_div">{{fitbit_stopped}}</div>
+					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div> -->
+
+					<div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div><br><br>
+					<div id="container_2" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div><br><br>
+					<div id="container_3" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div><br><br>
+				<!-- /.col-lg-12 -->
+				<br><br>
+				<div class = "pull-center"><h2 align = "center">Live Sensor Data</h2></div>
+				<br><br>
+				<div  class = "pull-center"style="margin-left: auto ; margin-right: auto ; width = 100%;">
+				<div class="row" id="result">
+					<!-- /.col-lg-12 -->
+					<!-- /.row -->
+
+
+					<div class="col-lg-4 col-md-6">
+						<div class="panel panel-primary">
+							<div>
+								<div class="panel-heading fitbit-img">
+									<div class="row">
+										
+										  <div class="col-xs-3 ">
+                                        <!-- <i class="fitbit-img"></i> -->
+                                    </div>
+
+										<div class="col-xs-9 text-right">
+											<div class="huge">
+												FitBit
+											</div>
+
+
+											<div>
+												<div id="Compass">
+												</div>
+
+
+												<div id="Pulse">
+												</div>
+
+
+												<div id="Temp">
+												</div>
+
+
+												<div id="Beat">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-lg-4 col-md-6">
+						<div class="panel panel-red">
+							<div>
+								<div class="panel-heading phone-img">
+									<div class="row">
+										
+											  <div class="col-xs-3 ">
+                                        <!-- <i class="fitbit-img"></i> -->
+                                    </div>
+
+										<div class="col-xs-9 text-right">
+											<div class="huge">
+												Phone
+											</div>
+
+
+											<div>
+												<div id="PhoneDirection">
+												</div>
+
+												<div id="PhoneAccel">
+												</div>
+
+
+												<div id="PhoneTemp">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-lg-4 col-md-6">
+						<div class="panel panel-green">
+							<div>
+								<div class="panel-heading car-img">
+									<div class="row">
+										
+										  <div class="col-xs-3 ">
+                                        <!-- <i class="fitbit-img"></i> -->
+                                    </div>
+
+										<div class="col-xs-9 text-right">
+											<div class="huge">
+												Car
+											</div>
+
+
+											<div>
+												<div id="CarDirection">
+												</div>
+
+
+												<div id="CarSpeed">
+												</div>
+
+
+												<div id="CarTemp">
+												</div>
+
+
+												<div id="CarGear">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-lg-3 col-md-6">
+					</div>
+				</div>
+				</div>
+				
+
+			</div>
+			<!-- /#page-wrapper -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+	<!-- /#wrapper -->
+	<!-- jQuery -->
+	<br><br><br>
+	
+	<script src="js/jquery.min.js">
+	</script> 
+	<!-- Bootstrap Core JavaScript -->
+	 
+	<script src="js/bootstrap.min.js">
+	</script>
+
+	<script src="js/metisMenu.min.js"></script>
+	<script src="js/style.js"></script> 
+
+	<script src="js/fitbit.js">
+	</script> <!-- Duplicater JavaScript -->
+	 
+	<script src="js/phone.js">
+	</script> <!-- Duplicater JavaScript -->
+	 
+	<script src="js/car.js">
+	</script> <!-- Duplicater JavaScript -->
+
+</body>
+</html>

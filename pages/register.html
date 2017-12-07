@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="registerapp">
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<meta content="" name="description">
+	<meta content="" name="author">
+
+	<title>Register</title><!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<!-- MetisMenu CSS -->
+	<link href="css/metisMenu.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="css/style.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
+    <script src="controllers/register.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="login-panel panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Please Enter Details</h3>
+					</div>
+
+
+					<div class="panel-body" ng-controller="registercontroller">
+						<form role="form" name="registration_form" novalidate class="ng-invalid">
+							<fieldset>
+								<div class="form-group">
+									<input autofocus="" class="form-control" name="name" placeholder="User Name" ng-model="newuser.name" type="text" ng-required="true">
+								</div>
+								<p style="color: red" ng-show="registration_form.name.$invalid && registration_form.name.$touched">User Name is required</p>
+
+								<div class="form-group">
+									<input autofocus="" class="form-control" name="email" placeholder="E-mail" ng-model="newuser.email" type="email" ng-required="true" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">
+								</div>
+								<p style="color: red"  ng-show="registration_form.email.$error.required && registration_form.email.$touched">valid Email Id is required</p>
+								<p style="color: red" ng-show="!registration_form.email.$error.required && registration_form.email.$error.email && registration_form.email.$touched">Please enter a valid email id</p>
+
+								<div class="form-group">
+									<input class = "form-control" name="newPassword" placeholder = "Enter Password" ng-model="newuser.password" type="password" ng-required="true" ng-minlength="4" ng-maxlength="10" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/">
+								</div>
+								<p style="color: red" ng-show="registration_form.newPassword.$error.required && registration_form.newPassword.$touched">Password is required</p>
+								<p style="color: red" ng-show="!registration_form.newPassword.$error.required && (registration_form.newPassword.$error.minlength || registration_form.newPassword.$error.maxlength) && registration_form.newPassword.$touched">Password must be between 4 and 10 characters</p>
+								<p style="color: red" ng-show="!registration_form.newPassword.$error.required && !registration_form.newPassword.$error.minlength && !registration_form.newPassword.$error.maxlength && registration_form.newPassword.$error.pattern && registration_form.newPassword.$touched">Must contain atleast one lower, one uppercase letter, and one non-alpha character (a number or a symbol.) </p>
+
+								<div class="form-group">
+									<input class = "form-control" name="confirmpassword" placeholder = "Confirm Password" ng-model="newuser.confirmpassword" type="password" ng-required="true" ng-change="checkPassword()">
+								</div>
+
+								<p style="color: red" ng-show="registration_form.confirmpassword.$error.required && registration_form.confirmpassword.$touched">Please confirm your password</p>
+								<p style="color: red" ng-show="!registration_form.confirmpassword.$error.required && registration_form.confirmpassword.$touched && registration_form.confirmpassword.$error.dontMatch && registration_form.newPassword.$touched">Passwords do not match</p>
+								
+																
+								<a class="btn btn-lg btn-success btn-block" ng-disabled="registration_form.$invalid" ng-click="registeruser()">Register</a>
+								
+								
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- jQuery -->
+	<script src="js/jquery.min.js">
+	</script> <!-- Bootstrap Core JavaScript -->
+	 
+	<script src="js/bootstrap.min.js">
+	</script> 
+
+		<script src="js/metisMenu.min.js"></script>
+	<script src="js/style.js"></script> 
+
+</body>
+</html>
